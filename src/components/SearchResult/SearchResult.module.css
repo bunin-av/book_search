@@ -1,0 +1,101 @@
+.searchResult__wrapper{
+    padding: 20px 20px;
+    width: 100%;
+    z-index: 3;
+    border-radius: 10px;
+    transition: 0.2s;
+}
+
+.searchResult__wrapper.active{
+    background: white;
+}
+
+.isFetching {
+    opacity: 0.5;
+}
+
+.book__title_modal{
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: left;
+    border-bottom: 1px solid black;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+.book__author_modal{
+    font-size: 1.3rem;
+    text-align: left;
+}
+
+.book__description_modal{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 20px;
+    text-align: left;
+}
+
+.book__title{
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: left;
+}
+.book__author{
+    text-align: left;
+}
+
+.book__description{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 5px;
+    cursor: pointer;
+    background: white;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.book__author_wrapper{
+    margin-bottom: 30px;
+}
+
+.snippet__wrapper{
+    display: flex;
+    margin: 10px auto;
+    width: 100%;
+    height: 80px;
+}
+
+.book__cover{
+    padding: 2px;
+    cursor: pointer;
+    min-width: 50px;
+    max-width: 50px;
+}
+
+.book__cover_img{
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+    max-width: 100%;
+}
+
+@media screen and (min-width: 400px) and (max-width: 680px){
+    .book__cover_modal{
+        width: 100px;
+        height: 100px;
+    }
+}
+
+@media screen and (max-width: 400px){
+    .book__cover_modal {
+        width: 100px;
+        height: 100px;
+    }
+    .book__title_modal {
+        font-size: 1.5rem;
+    }
+    .book__author_modal{
+        font-size: 1rem;
+    }
+}

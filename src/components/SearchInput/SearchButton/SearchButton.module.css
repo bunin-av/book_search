@@ -1,0 +1,24 @@
+.button {
+    border-radius: 25px;
+    border: 2px solid white;
+    cursor: pointer;
+    padding: 10px 20px;
+    background: white;
+    box-sizing: border-box;
+}
+
+.button:hover {
+    /*border: 2px solid mediumslateblue;*/
+    padding: 10px 20px;
+    transition: 0.4s;
+    box-sizing: border-box;
+    background: brown;
+    border: 2px solid brown;
+    color: white;
+}
+
+@media screen and (max-width: 625px) {
+    .button {
+        display: none;
+    }
+}

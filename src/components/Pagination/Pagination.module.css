@@ -1,0 +1,50 @@
+.wrapper {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    z-index: 2;
+    border-radius: 20px;
+    padding: 2px 20px;
+    transition: 0.2s;
+}
+
+.wrapper.active{
+    background: white;
+}
+
+.selectedPage{
+    font-weight: bold;
+    border: 2px solid gray;
+}
+
+.pages, .selectedPage{
+    padding: 5px;
+    cursor: pointer;
+    display: block;
+    min-width: 30px;
+    text-align: center;
+}
+
+.selectedPage{
+    font-weight: bold;
+    border: 2px solid gray;
+    border-radius: 25%;
+}
+
+.totalPages {
+    cursor: default;
+    padding: 5px 10px;
+}
+
+.disabled {
+    display: none;
+}
+
+@media screen and (max-width: 350px){
+    .wrapper {
+        width: 100%;
+        font-size: 0.8rem;
+    }
+}
+

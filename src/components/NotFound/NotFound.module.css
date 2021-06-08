@@ -1,0 +1,13 @@
+.notFound__wrapper{
+    height: 80px;
+    z-index: 2;
+    margin: 0 auto;
+}
+
+.kitten{
+    max-width: 100%;
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+}
+
