@@ -35,6 +35,10 @@
     text-align: left;
 }
 
+.book__cover_modal{
+    min-width: 30%
+}
+
 .book__title{
     font-size: 1.1rem;
     font-weight: bold;
