@@ -111,7 +111,7 @@ export const getBooks = (value: string, currentPage: number, isChangingPage: boo
                     dispatch(setNotFound(false))
                 }
                 response.data.docs.forEach((b: DataElementType) => {
-                    b.author_name = !!b.author_name.length ? [b.author_name.join(', ')] : ['']
+                    b.author_name = b.author_name ? [b.author_name.join(', ')] : ['']
                     if (b.cover_edition_key) {
                         b.coverS = `http://covers.openlibrary.org/b/olid/${b.cover_edition_key}-S.jpg`
                         b.coverM = `http://covers.openlibrary.org/b/olid/${b.cover_edition_key}-M.jpg`
