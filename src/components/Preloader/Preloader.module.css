@@ -93,3 +93,9 @@
         transform: rotate(360deg);
     }
 }
+
+@media screen and (max-width: 1250px) {
+    .wrapper {
+        top: 40%;
+    }
+}
