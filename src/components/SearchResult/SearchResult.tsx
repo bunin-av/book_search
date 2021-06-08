@@ -42,7 +42,6 @@ export function SearchResult(props: SearchPropsType) {
         return b.isbn[0] === elemID
     })
 
-
     const modalElem = props.modalActive && selectedBook &&
         <Modal active={props.modalActive} setActive={props.setModalActive}>
             <div className={styles.book__cover_modal}>

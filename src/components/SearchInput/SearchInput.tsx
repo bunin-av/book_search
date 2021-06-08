@@ -31,7 +31,6 @@ export function SearchInput(props: SearchInputType) {
         props.goSearch(props.searchValue)
     }
 
-
     return (
         <div className={styles.wrapper}>
             <div className={styles.search}>
@@ -47,7 +46,6 @@ export function SearchInput(props: SearchInputType) {
                      alt=""
                      className={styles.search_icon}/>
             </div>
-
             <SearchButton searchValue={props.searchValue} goSearch={onSearchButtonPress}/>
         </div>
     )

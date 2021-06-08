@@ -8,7 +8,6 @@
 }
 
 .button:hover {
-    /*border: 2px solid mediumslateblue;*/
     padding: 10px 20px;
     transition: 0.4s;
     box-sizing: border-box;

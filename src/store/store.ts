@@ -10,8 +10,5 @@ let Reducer = combineReducers({
 export let store = createStore(Reducer, applyMiddleware(thunkMiddleware))
 
 
-// @ts-ignore
-window.store = store
-
 
 
