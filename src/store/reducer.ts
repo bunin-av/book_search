@@ -1,5 +1,4 @@
 import {searchAPI} from "../API/API";
-import bookS from "../assets/bookS.png"
 import bookM from "../assets/bookM.png"
 import {ThunkDispatch} from "@reduxjs/toolkit";
 
@@ -12,7 +11,7 @@ const SET_NOT_FOUND = 'SET_NOT_FOUND'
 const ADD_SEARCH_VALUE = 'ADD_SEARCH_VALUE'
 
 export type BooksStateType = {
-    booksData: []
+    booksData: DataElementType[]
     isFetching: boolean
     currentPage: number
     numFound: number
@@ -76,15 +75,10 @@ export const reducer = (state = initialState, action: ActionsTypes) => {
 }
 
 export type DataElementType = {
-    cover_i?: number
     title: string
-    author_key: string[]
     author_name: string[]
-    edition_key: string[]
     isbn: number[] | string[]
     publisher: string[]
-    publish_date: string[]
-    coverS: string
     coverM: string
     cover_edition_key: string
     first_publish_year: number
@@ -113,10 +107,8 @@ export const getBooks = (value: string, currentPage: number, isChangingPage: boo
                 response.data.docs.forEach((b: DataElementType) => {
                     b.author_name = b.author_name ? [b.author_name.join(', ')] : ['']
                     if (b.cover_edition_key) {
-                        b.coverS = `https://covers.openlibrary.org/b/olid/${b.cover_edition_key}-S.jpg`
                         b.coverM = `https://covers.openlibrary.org/b/olid/${b.cover_edition_key}-M.jpg`
                     } else {
-                        b.coverS = bookS
                         b.coverM = bookM
                     }
                     if (!b.isbn) {
