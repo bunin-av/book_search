@@ -81,7 +81,7 @@ export type DataElementType = {
     publisher: string[]
     coverM: string
     cover_edition_key: string
-    first_publish_year: number
+    first_publish_year: string
 }
 
 export const setBooks = (data: DataElementType[]) => ({type: SET_BOOKS, data}) as const
@@ -105,15 +105,14 @@ export const getBooks = (value: string, currentPage: number, isChangingPage: boo
                     dispatch(setNotFound(false))
                 }
                 response.data.docs.forEach((b: DataElementType) => {
-                    b.author_name = b.author_name ? [b.author_name.join(', ')] : ['']
-                    if (b.cover_edition_key) {
-                        b.coverM = `https://covers.openlibrary.org/b/olid/${b.cover_edition_key}-M.jpg`
-                    } else {
-                        b.coverM = bookM
-                    }
-                    if (!b.isbn) {
-                        b.isbn = [' ']
-                    }
+                    b.author_name = b.author_name ? [b.author_name.join(', ')] : [''];
+                    (b.cover_edition_key)
+                        ? b.coverM = `https://covers.openlibrary.org/b/olid/${b.cover_edition_key}-M.jpg`
+                        : b.coverM = bookM
+                    if (!b.isbn) b.isbn = [' ']
+                    if (!b.title)  b.title = ' '
+                    if (!b.publisher)  b.publisher = [' ']
+                    if (!b.first_publish_year)  b.first_publish_year = ' '
                 })
                 dispatch(setBooks(response.data.docs));
                 isChangingPage
