@@ -113,8 +113,8 @@ export const getBooks = (value: string, currentPage: number, isChangingPage: boo
                 response.data.docs.forEach((b: DataElementType) => {
                     b.author_name = b.author_name ? [b.author_name.join(', ')] : ['']
                     if (b.cover_edition_key) {
-                        b.coverS = `http://covers.openlibrary.org/b/olid/${b.cover_edition_key}-S.jpg`
-                        b.coverM = `http://covers.openlibrary.org/b/olid/${b.cover_edition_key}-M.jpg`
+                        b.coverS = `https://covers.openlibrary.org/b/olid/${b.cover_edition_key}-S.jpg`
+                        b.coverM = `https://covers.openlibrary.org/b/olid/${b.cover_edition_key}-M.jpg`
                     } else {
                         b.coverS = bookS
                         b.coverM = bookM
