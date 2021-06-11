@@ -39,12 +39,12 @@ export type DataElementType = {
 }
 
 type ActionsTypes =
-  ReturnType<typeof setBooks>
-  | ReturnType<typeof toggleIsFetching>
-  | ReturnType<typeof changePage>
-  | ReturnType<typeof setTotalCount>
-  | ReturnType<typeof setNotFound>
-  | ReturnType<typeof addSearchValue>
+    ReturnType<typeof setBooks>
+    | ReturnType<typeof toggleIsFetching>
+    | ReturnType<typeof changePage>
+    | ReturnType<typeof setTotalCount>
+    | ReturnType<typeof setNotFound>
+    | ReturnType<typeof addSearchValue>
 
 
 export const reducer = (state = initialState, action: ActionsTypes): BooksStateType => {
