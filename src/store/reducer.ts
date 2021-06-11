@@ -28,16 +28,26 @@ const initialState: BooksStateType = {
     searchValue: '',
 }
 
+export type DataElementType = {
+    title: string
+    author_name: string[]
+    isbn: string[]
+    publisher: string[]
+    coverM: string
+    cover_edition_key: string
+    first_publish_year: number
+}
+
 type ActionsTypes =
-    ReturnType<typeof setBooks>
-    | ReturnType<typeof toggleIsFetching>
-    | ReturnType<typeof changePage>
-    | ReturnType<typeof setTotalCount>
-    | ReturnType<typeof setNotFound>
-    | ReturnType<typeof addSearchValue>
+  ReturnType<typeof setBooks>
+  | ReturnType<typeof toggleIsFetching>
+  | ReturnType<typeof changePage>
+  | ReturnType<typeof setTotalCount>
+  | ReturnType<typeof setNotFound>
+  | ReturnType<typeof addSearchValue>
 
 
-export const reducer = (state = initialState, action: ActionsTypes) => {
+export const reducer = (state = initialState, action: ActionsTypes): BooksStateType => {
     switch (action.type) {
         case SET_BOOKS:
             return {
@@ -59,7 +69,7 @@ export const reducer = (state = initialState, action: ActionsTypes) => {
                 ...state,
                 numFound: action.count
             }
-            case SET_NOT_FOUND:
+        case SET_NOT_FOUND:
             return {
                 ...state,
                 notFound: action.value
@@ -74,15 +84,6 @@ export const reducer = (state = initialState, action: ActionsTypes) => {
     }
 }
 
-export type DataElementType = {
-    title: string
-    author_name: string[]
-    isbn: number[] | string[]
-    publisher: string[]
-    coverM: string
-    cover_edition_key: string
-    first_publish_year: string
-}
 
 export const setBooks = (data: DataElementType[]) => ({type: SET_BOOKS, data}) as const
 export const toggleIsFetching = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching}) as const
@@ -93,31 +94,38 @@ export const addSearchValue = (value: string) => ({type: ADD_SEARCH_VALUE, value
 
 
 
+export type GetResponse = {
+    docs: DataElementType[]
+    numFound: number
+    numFoundExact: boolean
+    num_found: number
+    start: number
+}
+
 export const getBooks = (value: string, currentPage: number, isChangingPage: boolean) =>
-    (dispatch: ThunkDispatch<BooksStateType, unknown, ActionsTypes>) => {
-        dispatch(toggleIsFetching(true))
-        searchAPI.getBooks(value, currentPage)
-            .then((response) => {
-                dispatch(toggleIsFetching(false))
-                if (!response.data.docs.length) {
-                    dispatch(setNotFound(true))
-                } else{
-                    dispatch(setNotFound(false))
-                }
-                response.data.docs.forEach((b: DataElementType) => {
-                    b.author_name = b.author_name ? [b.author_name.join(', ')] : [''];
-                    (b.cover_edition_key)
-                        ? b.coverM = `https://covers.openlibrary.org/b/olid/${b.cover_edition_key}-M.jpg`
-                        : b.coverM = bookM
-                    if (!b.isbn) b.isbn = [' ']
-                    if (!b.title)  b.title = ' '
-                    if (!b.publisher)  b.publisher = [' ']
-                    if (!b.first_publish_year)  b.first_publish_year = ' '
-                })
-                dispatch(setBooks(response.data.docs));
-                isChangingPage
-                    ? dispatch(changePage(currentPage))
-                    : dispatch(setTotalCount(response.data.numFound))
-            })
-    }
+  (dispatch: ThunkDispatch<BooksStateType, unknown, ActionsTypes>) => {
+      dispatch(toggleIsFetching(true))
+      searchAPI.getBooks(value, currentPage)
+        .then((response) => {
+            dispatch(toggleIsFetching(false))
+            if (!response.data.docs.length) {
+                dispatch(setNotFound(true))
+            } else {
+                dispatch(setNotFound(false))
+            }
+            let data: DataElementType[] = response.data.docs.map((el: DataElementType) => ({
+                title: el.title,
+                author_name: el.author_name ? [el.author_name.join(', ')] : [''],
+                isbn: el.isbn ? el.isbn : [''],
+                publisher: el.publisher ? el.publisher : [''],
+                coverM: el.cover_edition_key ? `https://covers.openlibrary.org/b/olid/${el.cover_edition_key}-M.jpg` : bookM,
+                cover_edition_key: el.cover_edition_key,
+                first_publish_year: el.first_publish_year
+            }))
+            dispatch(setBooks(data));
+            isChangingPage
+              ? dispatch(changePage(currentPage))
+              : dispatch(setTotalCount(response.data.numFound))
+        })
+  }
 
