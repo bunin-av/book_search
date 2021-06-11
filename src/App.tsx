@@ -16,7 +16,6 @@ function App(props: AppPropsType) {
 
     const goSearch = (value: string) => {
         value.trim() &&
-        // props.addSearchHistory()
         props.getBooks(value.trim().split(' ').join('+'), 1, false)
         props.changePage(1)
     }
@@ -51,7 +50,6 @@ function App(props: AppPropsType) {
                     onPageChange={onPageChange}
                     currentPage={props.currentPage}
                 />
-                {/*<SearchHistory value={this.props.searchHistory}/>*/}
                 <SearchResult
                     data={props.books}
                     isFetching={props.isFetching}
@@ -82,7 +80,6 @@ type MSTPType = {
 
 const mapState = (state: MSTPType) => ({
     searchValue: state.reducer.searchValue,
-    // searchHistory: state.search.searchHistory,
     books: state.reducer.booksData,
     currentPage: state.reducer.currentPage,
     numFound: state.reducer.numFound,
@@ -92,7 +89,6 @@ const mapState = (state: MSTPType) => ({
 
 const connector = connect(mapState, {
         addSearchValue,
-        // addSearchHistory,
         getBooks,
         changePage,
     }
