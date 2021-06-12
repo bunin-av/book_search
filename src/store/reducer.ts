@@ -106,7 +106,6 @@ export const getBooks = (value: string, currentPage: number, isChangingPage: boo
       dispatch(toggleIsFetching(true))
       searchAPI.getBooks(value, currentPage)
         .then((response) => {
-            console.log(response.data)
             dispatch(toggleIsFetching(false))
             if (!response.data.docs.length) {
                 dispatch(setNotFound(true))
@@ -117,10 +116,10 @@ export const getBooks = (value: string, currentPage: number, isChangingPage: boo
                 title: el.title,
                 author_name:
                   el.author_name
-                  ? el.author_name.length > 5
+                    ? el.author_name.length > 5
                     ? [el.author_name.filter((a, i) => i <= 3).join(', ') + ' & others']
                     : [el.author_name.join(', ')]
-                  : [''],
+                    : [''],
                 isbn: el.isbn ? el.isbn : [''],
                 publisher: el.publisher ? el.publisher : [''],
                 coverM: el.cover_edition_key ? `https://covers.openlibrary.org/b/olid/${el.cover_edition_key}-M.jpg` : bookM,
