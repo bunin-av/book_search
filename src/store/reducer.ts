@@ -39,12 +39,12 @@ export type DataElementType = {
 }
 
 type ActionsTypes =
-    ReturnType<typeof setBooks>
-    | ReturnType<typeof toggleIsFetching>
-    | ReturnType<typeof changePage>
-    | ReturnType<typeof setTotalCount>
-    | ReturnType<typeof setNotFound>
-    | ReturnType<typeof addSearchValue>
+  ReturnType<typeof setBooks>
+  | ReturnType<typeof toggleIsFetching>
+  | ReturnType<typeof changePage>
+  | ReturnType<typeof setTotalCount>
+  | ReturnType<typeof setNotFound>
+  | ReturnType<typeof addSearchValue>
 
 
 export const reducer = (state = initialState, action: ActionsTypes): BooksStateType => {
@@ -93,7 +93,6 @@ export const setNotFound = (value: boolean) => ({type: SET_NOT_FOUND, value}) as
 export const addSearchValue = (value: string) => ({type: ADD_SEARCH_VALUE, value}) as const
 
 
-
 export type GetResponse = {
     docs: DataElementType[]
     numFound: number
@@ -107,6 +106,7 @@ export const getBooks = (value: string, currentPage: number, isChangingPage: boo
       dispatch(toggleIsFetching(true))
       searchAPI.getBooks(value, currentPage)
         .then((response) => {
+            console.log(response.data)
             dispatch(toggleIsFetching(false))
             if (!response.data.docs.length) {
                 dispatch(setNotFound(true))
@@ -115,7 +115,12 @@ export const getBooks = (value: string, currentPage: number, isChangingPage: boo
             }
             let data: DataElementType[] = response.data.docs.map((el: DataElementType) => ({
                 title: el.title,
-                author_name: el.author_name ? [el.author_name.join(', ')] : [''],
+                author_name:
+                  el.author_name
+                  ? el.author_name.length > 5
+                    ? [el.author_name.filter((a, i) => i <= 3).join(', ') + ' & others']
+                    : [el.author_name.join(', ')]
+                  : [''],
                 isbn: el.isbn ? el.isbn : [''],
                 publisher: el.publisher ? el.publisher : [''],
                 coverM: el.cover_edition_key ? `https://covers.openlibrary.org/b/olid/${el.cover_edition_key}-M.jpg` : bookM,
