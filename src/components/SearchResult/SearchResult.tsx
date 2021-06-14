@@ -13,16 +13,16 @@ type SearchPropsType = {
 export function SearchResult(props: SearchPropsType) {
     const classNameSetter = `${styles.searchResult__wrapper} ${props.isFetching 
         ? styles.isFetching : ''} ${props.data.length ? styles.active : ''}`
-    const [elemID, setElemID] = useState<string | number>()
+    const [elemID, setElemID] = useState<string>()
 
-    const searchResultElements = props.data.map((b, i) => {
+    const searchResultElements = props.data.map((b,i) => {
         return (
             <div
                 className={styles.snippet__wrapper}
                 key={i}
                 onClick={() => {
                     props.setModalActive(true)
-                    setElemID(b.isbn[0])
+                    setElemID(b.edition_key[0])
                 }}>
                 <div className={styles.book__cover}>
                     <img
@@ -39,7 +39,7 @@ export function SearchResult(props: SearchPropsType) {
     })
 
     const selectedBook = props.data.find(b => {
-        return b.isbn[0] === elemID
+        return b.edition_key[0] === elemID
     })
 
     const modalElem = props.modalActive && selectedBook &&

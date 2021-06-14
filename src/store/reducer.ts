@@ -36,6 +36,7 @@ export type DataElementType = {
     coverM: string
     cover_edition_key: string
     first_publish_year: number
+    edition_key: string[]
 }
 
 type ActionsTypes =
@@ -122,7 +123,8 @@ export const getBooks = (value: string, currentPage: number, isChangingPage: boo
           publisher: el.publisher ? el.publisher : [''],
           coverM: el.cover_edition_key ? `https://covers.openlibrary.org/b/olid/${el.cover_edition_key}-M.jpg` : bookM,
           cover_edition_key: el.cover_edition_key,
-          first_publish_year: el.first_publish_year
+          first_publish_year: el.first_publish_year,
+          edition_key: el.edition_key
       }))
       dispatch(setBooks(data));
       isChangingPage
