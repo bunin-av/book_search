@@ -107,18 +107,12 @@ export const getBooks = (value: string, currentPage: number, isChangingPage: boo
       dispatch(toggleIsFetching(true))
       const response = await searchAPI.getBooks(value, currentPage)
       dispatch(toggleIsFetching(false));
-      console.log(response.data.docs);
       (!response.data.docs.length)
-          ? dispatch(setNotFound(true))
-          : dispatch(setNotFound(false))
+        ? dispatch(setNotFound(true))
+        : dispatch(setNotFound(false))
       let data: DataElementType[] = response.data.docs.map((el: DataElementType) => ({
           title: el.title,
-          author_name:
-            el.author_name
-              ? el.author_name.length > 5
-                ? [el.author_name.filter((a, i) => i <= 3).join(', ') + ' & others']
-                : [el.author_name.join(', ')]
-              : [''],
+          author_name: authorNameCheck(el),
           isbn: el.isbn ? el.isbn : [''],
           publisher: el.publisher ? el.publisher : [''],
           coverM: el.cover_edition_key ? `https://covers.openlibrary.org/b/olid/${el.cover_edition_key}-M.jpg` : bookM,
@@ -132,3 +126,16 @@ export const getBooks = (value: string, currentPage: number, isChangingPage: boo
         : dispatch(setTotalCount(response.data.numFound))
   }
 
+const authorNameCheck = (el: DataElementType) => {
+    let author_name: string[]
+    if (el.author_name) {
+        if (el.author_name.length > 5) {
+            author_name = [el.author_name.filter((a, i) => i <= 3).join(', ') + ' & others']
+        } else {
+            author_name = [el.author_name.join(', ')]
+        }
+    } else {
+        author_name = ['']
+    }
+    return author_name
+}

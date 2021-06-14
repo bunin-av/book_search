@@ -11,8 +11,8 @@ type SearchPropsType = {
 }
 
 export function SearchResult(props: SearchPropsType) {
-    const classNameSetter = `${styles.searchResult__wrapper} ${props.isFetching 
-        ? styles.isFetching : ''} ${props.data.length ? styles.active : ''}`
+    const classNameSetter = `${styles.searchResult__wrapper} ${
+        props.isFetching ? styles.isFetching : ''} ${props.data.length ? styles.active : ''}`
     const [elemID, setElemID] = useState<string>()
 
     const searchResultElements = props.data.map((b,i) => {
